@@ -19,6 +19,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "RustyOptions.FSharp", "Rust
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "RustyOptions.FSharp.Tests", "RustyOptions.FSharp.Tests\RustyOptions.FSharp.Tests.fsproj", "{C80F0600-4305-4B44-9534-8B38EDDBE4DF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RustyOptions.Benchmarks", "RustyOptions.Benchmarks\RustyOptions.Benchmarks.csproj", "{5ECA863D-8CE7-43A0-88EF-B6DFC475A7A4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,10 @@ Global
 		{C80F0600-4305-4B44-9534-8B38EDDBE4DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C80F0600-4305-4B44-9534-8B38EDDBE4DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C80F0600-4305-4B44-9534-8B38EDDBE4DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5ECA863D-8CE7-43A0-88EF-B6DFC475A7A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5ECA863D-8CE7-43A0-88EF-B6DFC475A7A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5ECA863D-8CE7-43A0-88EF-B6DFC475A7A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5ECA863D-8CE7-43A0-88EF-B6DFC475A7A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		description = Option and Result types for C#, inspired by Rust

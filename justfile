@@ -25,3 +25,7 @@ doc:
   dotnet build -c Release src/
   docfx metadata docs/docfx.json
   docfx build docs/docfx.json
+
+# Run benchmarks
+benchmark:
+  dotnet run -c Release --project ./src/RustyOptions.Benchmarks/RustyOptions.Benchmarks.csproj
