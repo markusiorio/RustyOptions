@@ -5,14 +5,17 @@ namespace RustyOptions.Benchmarks;
 
 [GroupBenchmarksBy(BenchmarkLogicalGroupRule.ByCategory)]
 [CategoriesColumn]
+[Config(typeof(Config))]
 public class LastOrNoneBenchmarks
 {
+    const int SIZE = 1000;
+
     private readonly int[] intArray;
     private readonly List<int> intList;
 
     public LastOrNoneBenchmarks()
     {
-        intArray = [.. Enumerable.Range(1, 1000)];
+        intArray = [.. Enumerable.Range(1, SIZE)];
         intList = [.. intArray];
     }
 
@@ -46,36 +49,36 @@ public class LastOrNoneBenchmarks
         _ = LastOrNoneOld(intList);
     }
 
-    private static bool IsEven(int x) => (x & 1) == 0;
+    private static bool IsHalfway(int x) => x == 500;
 
     [BenchmarkCategory("Predicate"), Benchmark]
     public void LastOrNoneWithPredicateEnumerable()
     {
-        _ = IntEnumerable().LastOrNone(IsEven);
+        _ = IntEnumerable().LastOrNone(IsHalfway);
     }
 
     [BenchmarkCategory("Predicate"), Benchmark]
     public void LastOrNoneWithPredicateArray()
     {
-        _ = intArray.LastOrNone(IsEven);
+        _ = intArray.LastOrNone(IsHalfway);
     }
 
     [BenchmarkCategory("Predicate"), Benchmark(Baseline = true)]
     public void LastOrNoneWithPredicateArrayOld()
     {
-        _ = LastOrNoneOld(intArray, IsEven);
+        _ = LastOrNoneOld(intArray, IsHalfway);
     }
 
     [BenchmarkCategory("Predicate"), Benchmark]
     public void LastOrNoneWithPredicateList()
     {
-        _ = intList.LastOrNone(IsEven);
+        _ = intList.LastOrNone(IsHalfway);
     }
 
     [BenchmarkCategory("Predicate"), Benchmark]
     public void LastOrNoneWithPredicateListOld()
     {
-        _ = LastOrNoneOld(intList, IsEven);
+        _ = LastOrNoneOld(intList, IsHalfway);
     }
 
     private static Option<T> LastOrNoneOld<T>(IEnumerable<T> items)
