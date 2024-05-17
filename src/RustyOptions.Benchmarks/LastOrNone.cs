@@ -1,7 +1,10 @@
 using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Configs;
 
 namespace RustyOptions.Benchmarks;
 
+[GroupBenchmarksBy(BenchmarkLogicalGroupRule.ByCategory)]
+[CategoriesColumn]
 public class LastOrNoneBenchmarks
 {
     private readonly int[] intArray;
@@ -13,64 +16,66 @@ public class LastOrNoneBenchmarks
         intList = [.. intArray];
     }
 
-    [Benchmark]
+    [BenchmarkCategory("No-Predicate"), Benchmark]
     public void LastOrNoneEnumerable()
     {
         _ = IntEnumerable().LastOrNone();
     }
 
-    [Benchmark]
+    [BenchmarkCategory("No-Predicate"), Benchmark]
     public void LastOrNoneArray()
     {
         _ = intArray.LastOrNone();
     }
 
-    [Benchmark(Baseline = true)]
+    [BenchmarkCategory("No-Predicate"), Benchmark(Baseline = true)]
     public void LastOrNoneArrayOld()
     {
         _ = LastOrNoneOld(intArray);
     }
 
-    [Benchmark]
+    [BenchmarkCategory("No-Predicate"), Benchmark]
     public void LastOrNoneList()
     {
         _ = intList.LastOrNone();
     }
 
-    [Benchmark]
+    [BenchmarkCategory("No-Predicate"), Benchmark]
     public void LastOrNoneListOld()
     {
         _ = LastOrNoneOld(intList);
     }
 
-    [Benchmark]
+    private static bool IsEven(int x) => (x & 1) == 0;
+
+    [BenchmarkCategory("Predicate"), Benchmark]
     public void LastOrNoneWithPredicateEnumerable()
     {
-        _ = IntEnumerable().LastOrNone(x => x % 2 == 0);
+        _ = IntEnumerable().LastOrNone(IsEven);
     }
 
-    [Benchmark]
+    [BenchmarkCategory("Predicate"), Benchmark]
     public void LastOrNoneWithPredicateArray()
     {
-        _ = intArray.LastOrNone(x => x % 2 == 0);
+        _ = intArray.LastOrNone(IsEven);
     }
 
-    [Benchmark]
+    [BenchmarkCategory("Predicate"), Benchmark(Baseline = true)]
     public void LastOrNoneWithPredicateArrayOld()
     {
-        _ = LastOrNoneOld(intArray, x => x % 2 == 0);
+        _ = LastOrNoneOld(intArray, IsEven);
     }
 
-    [Benchmark]
+    [BenchmarkCategory("Predicate"), Benchmark]
     public void LastOrNoneWithPredicateList()
     {
-        _ = intList.LastOrNone(x => x % 2 == 0);
+        _ = intList.LastOrNone(IsEven);
     }
 
-    [Benchmark]
+    [BenchmarkCategory("Predicate"), Benchmark]
     public void LastOrNoneWithPredicateListOld()
     {
-        _ = LastOrNoneOld(intList, x => x % 2 == 0);
+        _ = LastOrNoneOld(intList, IsEven);
     }
 
     private static Option<T> LastOrNoneOld<T>(IEnumerable<T> items)

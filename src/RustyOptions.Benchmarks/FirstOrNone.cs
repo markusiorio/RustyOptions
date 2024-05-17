@@ -1,7 +1,10 @@
 using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Configs;
 
 namespace RustyOptions.Benchmarks;
 
+[GroupBenchmarksBy(BenchmarkLogicalGroupRule.ByCategory)]
+[CategoriesColumn]
 public class FirstOrNoneBenchmarks
 {
     private readonly int[] intArray;
@@ -13,64 +16,66 @@ public class FirstOrNoneBenchmarks
         intList = [.. intArray];
     }
 
-    [Benchmark]
+    [BenchmarkCategory("No-Predicate"), Benchmark]
     public void FirstOrNoneEnumerable()
     {
         _ = IntEnumerable().FirstOrNone();
     }
 
-    [Benchmark]
+    [BenchmarkCategory("No-Predicate"), Benchmark]
     public void FirstOrNoneArray()
     {
         _ = intArray.FirstOrNone();
     }
 
-    [Benchmark(Baseline = true)]
+    [BenchmarkCategory("No-Predicate"), Benchmark(Baseline = true)]
     public void FirstOrNoneArrayOld()
     {
         _ = FirstOrNoneOld(intArray);
     }
 
-    [Benchmark]
+    [BenchmarkCategory("No-Predicate"), Benchmark]
     public void FirstOrNoneList()
     {
         _ = intList.FirstOrNone();
     }
 
-    [Benchmark]
+    [BenchmarkCategory("No-Predicate"), Benchmark]
     public void FirstOrNoneListOld()
     {
         _ = FirstOrNoneOld(intList);
     }
 
-    [Benchmark]
+    private static bool IsEven(int x) => (x & 1) == 0;
+
+    [BenchmarkCategory("Predicate"), Benchmark]
     public void FirstOrNoneWithPredicateEnumerable()
     {
-        _ = IntEnumerable().FirstOrNone(x => x % 2 == 0);
+        _ = IntEnumerable().FirstOrNone(IsEven);
     }
 
-    [Benchmark]
+    [BenchmarkCategory("Predicate"), Benchmark]
     public void FirstOrNoneWithPredicateArray()
     {
-        _ = intArray.FirstOrNone(x => x % 2 == 0);
+        _ = intArray.FirstOrNone(IsEven);
     }
 
-    [Benchmark]
+    [BenchmarkCategory("Predicate"), Benchmark(Baseline = true)]
     public void FirstOrNoneWithPredicateArrayOld()
     {
-        _ = FirstOrNoneOld(intArray, x => x % 2 == 0);
+        _ = FirstOrNoneOld(intArray, IsEven);
     }
 
-    [Benchmark]
+    [BenchmarkCategory("Predicate"), Benchmark]
     public void FirstOrNoneWithPredicateList()
     {
-        _ = intList.FirstOrNone(x => x % 2 == 0);
+        _ = intList.FirstOrNone(IsEven);
     }
 
-    [Benchmark]
+    [BenchmarkCategory("Predicate"), Benchmark]
     public void FirstOrNoneWithPredicateListOld()
     {
-        _ = FirstOrNoneOld(intList, x => x % 2 == 0);
+        _ = FirstOrNoneOld(intList, IsEven);
     }
 
     private static Option<T> FirstOrNoneOld<T>(IEnumerable<T> items)
