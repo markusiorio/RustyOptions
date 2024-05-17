@@ -56,9 +56,21 @@ public class LastOrNoneBenchmarks
     }
 
     [Benchmark]
+    public void LastOrNoneWithPredicateArrayOld()
+    {
+        _ = LastOrNoneOld(intArray, x => x % 2 == 0);
+    }
+
+    [Benchmark]
     public void LastOrNoneWithPredicateList()
     {
         _ = intList.LastOrNone(x => x % 2 == 0);
+    }
+
+    [Benchmark]
+    public void LastOrNoneWithPredicateListOld()
+    {
+        _ = LastOrNoneOld(intList, x => x % 2 == 0);
     }
 
     private static Option<T> LastOrNoneOld<T>(IEnumerable<T> items)
@@ -87,6 +99,63 @@ public class LastOrNoneBenchmarks
                 while (enumerator.MoveNext());
 
                 return Option.Some(result);
+            }
+        }
+
+        return default;
+    }
+
+    public static Option<T> LastOrNoneOld<T>(IEnumerable<T> items, Func<T, bool> predicate)
+        where T : notnull
+    {
+        ArgumentNullException.ThrowIfNull(items);
+        ArgumentNullException.ThrowIfNull(predicate);
+
+        if (items is IList<T> list)
+        {
+            for (var i = list.Count - 1; i >= 0; --i)
+            {
+                var result = list[i];
+                if (predicate(result))
+                {
+                    return Option.Some(result);
+                }
+            }
+
+            return default;
+        }
+        else if (items is IReadOnlyList<T> readOnlyList)
+        {
+            for (var i = readOnlyList.Count - 1; i >= 0; --i)
+            {
+                var result = readOnlyList[i];
+                if (predicate(result))
+                {
+                    return Option.Some(result);
+                }
+            }
+
+            return default;
+        }
+        else
+        {
+            using var enumerator = items.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                var result = enumerator.Current;
+                if (predicate(result))
+                {
+                    while (enumerator.MoveNext())
+                    {
+                        var element = enumerator.Current;
+                        if (predicate(element))
+                        {
+                            result = element;
+                        }
+                    }
+
+                    return Option.Some(result);
+                }
             }
         }
 

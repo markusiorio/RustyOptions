@@ -56,9 +56,21 @@ public class FirstOrNoneBenchmarks
     }
 
     [Benchmark]
+    public void FirstOrNoneWithPredicateArrayOld()
+    {
+        _ = FirstOrNoneOld(intArray, x => x % 2 == 0);
+    }
+
+    [Benchmark]
     public void FirstOrNoneWithPredicateList()
     {
         _ = intList.FirstOrNone(x => x % 2 == 0);
+    }
+
+    [Benchmark]
+    public void FirstOrNoneWithPredicateListOld()
+    {
+        _ = FirstOrNoneOld(intList, x => x % 2 == 0);
     }
 
     private static Option<T> FirstOrNoneOld<T>(IEnumerable<T> items)
@@ -80,6 +92,23 @@ public class FirstOrNoneBenchmarks
             if (enumerator.MoveNext())
             {
                 return Option.Some(enumerator.Current);
+            }
+        }
+
+        return default;
+    }
+
+    public static Option<T> FirstOrNoneOld<T>(IEnumerable<T> items, Func<T, bool> predicate)
+        where T : notnull
+    {
+        ArgumentNullException.ThrowIfNull(items);
+        ArgumentNullException.ThrowIfNull(predicate);
+
+        foreach (var item in items)
+        {
+            if (predicate(item))
+            {
+                return Option.Some(item);
             }
         }
 
