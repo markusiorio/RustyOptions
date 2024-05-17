@@ -9,7 +9,7 @@ on:
       - "**.csproj"
 
 env:
-  DOTNET_VERSION: "8.0.100" # The .NET SDK version to use
+  DOTNET_VERSION: "8.0.300" # The .NET SDK version to use
 
 jobs:
   build-and-test:
@@ -23,7 +23,7 @@ jobs:
         working-directory: src
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
