@@ -9,7 +9,7 @@ public class LastOrNoneBenchmarks
 
     public LastOrNoneBenchmarks()
     {
-        intArray = Enumerable.Range(1, 1000).ToArray();
+        intArray = [.. Enumerable.Range(1, 1000)];
         intList = [.. intArray];
     }
 

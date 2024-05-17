@@ -78,9 +78,7 @@ public class OptionCollectionTests
         var options = Enumerable.Range(1, 10)
             .Select(x => (x & 1) == 0 ? Some(x) : None<int>());
 
-        ReadOnlySpan<int> values = options.Values().ToArray();
-
-        Assert.Equal([2, 4, 6, 8, 10], values);
+        Assert.Equal([2, 4, 6, 8, 10], [.. options.Values()]);
     }
 
     [Fact]
