@@ -192,9 +192,8 @@ public static class OptionCollectionExtensions
     public static Option<T> FirstOrNone<T>(this List<T> self)
         where T : notnull
     {
-        if (self is null) return default;
         var span = CollectionsMarshal.AsSpan(self);
-        return span.Length > 0 ? Option.Some(span[0]) : default;
+        return span.IsEmpty ? default : Option.Some(span[0]);
     }
 
     /// <summary>
@@ -206,7 +205,7 @@ public static class OptionCollectionExtensions
     public static Option<T> FirstOrNone<T>(this ReadOnlySpan<T> self)
         where T : notnull
     {
-        return self.Length > 0 ? Option.Some(self[0]) : default;
+        return self.IsEmpty ? default : Option.Some(self[0]);
     }
 
     /// <summary>
@@ -218,7 +217,7 @@ public static class OptionCollectionExtensions
     public static Option<T> FirstOrNone<T>(this Span<T> self)
         where T : notnull
     {
-        return self.Length > 0 ? Option.Some(self[0]) : default;
+        return self.IsEmpty ? default : Option.Some(self[0]);
     }
 
     /// <summary>
@@ -284,7 +283,6 @@ public static class OptionCollectionExtensions
     public static Option<T> FirstOrNone<T>(this List<T> self, Func<T, bool> predicate)
         where T : notnull
     {
-        if (self is null) return default;
         var span = CollectionsMarshal.AsSpan(self);
         return FirstOrNone((ReadOnlySpan<T>)span, predicate);
     }
@@ -396,9 +394,8 @@ public static class OptionCollectionExtensions
     public static Option<T> LastOrNone<T>(this List<T> self)
         where T : notnull
     {
-        if (self is null) return default;
         var span = CollectionsMarshal.AsSpan(self);
-        return span.Length > 0 ? Option.Some(span[^1]) : default;
+        return span.IsEmpty ? default : Option.Some(span[^1]);
     }
 
     /// <summary>
@@ -410,7 +407,7 @@ public static class OptionCollectionExtensions
     public static Option<T> LastOrNone<T>(this Span<T> self)
         where T : notnull
     {
-        return self.Length > 0 ? Option.Some(self[^1]) : default;
+        return self.IsEmpty ? default : Option.Some(self[^1]);
     }
 
     /// <summary>
@@ -422,7 +419,7 @@ public static class OptionCollectionExtensions
     public static Option<T> LastOrNone<T>(this ReadOnlySpan<T> self)
         where T : notnull
     {
-        return self.Length > 0 ? Option.Some(self[^1]) : default;
+        return self.IsEmpty ? default : Option.Some(self[^1]);
     }
 
     /// <summary>
@@ -529,7 +526,6 @@ public static class OptionCollectionExtensions
     public static Option<T> LastOrNone<T>(this List<T> self, Func<T, bool> predicate)
         where T : notnull
     {
-        if (self is null) return default;
         var span = CollectionsMarshal.AsSpan(self);
         return LastOrNone((ReadOnlySpan<T>)span, predicate);
     }
@@ -646,7 +642,6 @@ public static class OptionCollectionExtensions
     public static Option<T> SingleOrNone<T>(this List<T> self)
         where T : notnull
     {
-        if (self is null) return default;
         var span = CollectionsMarshal.AsSpan(self);
         return span.Length == 1
             ? Option.Some(span[0])
@@ -753,7 +748,6 @@ public static class OptionCollectionExtensions
     public static Option<T> SingleOrNone<T>(this List<T> self, Func<T, bool> predicate)
         where T : notnull
     {
-        if (self is null) return default;
         var span = CollectionsMarshal.AsSpan(self);
         return SingleOrNone((ReadOnlySpan<T>)span, predicate);
     }
@@ -882,7 +876,6 @@ public static class OptionCollectionExtensions
     public static Option<T> ElementAtOrNone<T>(this List<T> self, int index)
         where T : notnull
     {
-        if (self is null) return default;
         var span = CollectionsMarshal.AsSpan(self);
         return ElementAtOrNone((ReadOnlySpan<T>)span, index);
     }
