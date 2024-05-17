@@ -3,6 +3,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using static System.ArgumentNullException;
 using static RustyOptions.NumericOption;
 
@@ -263,6 +264,85 @@ public static class NumericOptionExtensions
                 yield return value;
             }
         }
+    }
+
+    /// <summary>
+    /// Copies the inner values of all <see cref="NumericOption{T}"/> in a span to a destination span,
+    /// returning the number of values copied.
+    /// </summary>
+    /// <typeparam name="T">The type of the numeric option values.</typeparam>
+    /// <param name="self">The source span of numeric options.</param>
+    /// <param name="destination">The destination span to copy the values to.</param>
+    /// <returns>The number of values copied to the destination span.</returns>
+    /// <exception cref="System.IndexOutOfRangeException">
+    /// Thrown if the destination span is too small to hold all the values.
+    /// </exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static int CopyValuesTo<T>(this NumericOption<T>[] self, Span<T> destination)
+        where T : struct, INumber<T>
+    {
+        return CopyValuesTo((ReadOnlySpan<NumericOption<T>>)self, destination);
+    }
+
+    /// <summary>
+    /// Copies the inner values of all <see cref="NumericOption{T}"/> in a span to a destination span,
+    /// returning the number of values copied.
+    /// </summary>
+    /// <typeparam name="T">The type of the numeric option values.</typeparam>
+    /// <param name="self">The source span of numeric options.</param>
+    /// <param name="destination">The destination span to copy the values to.</param>
+    /// <returns>The number of values copied to the destination span.</returns>
+    /// <exception cref="System.IndexOutOfRangeException">
+    /// Thrown if the destination span is too small to hold all the values.
+    /// </exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static int CopyValuesTo<T>(this List<NumericOption<T>> self, Span<T> destination)
+        where T : struct, INumber<T>
+    {
+        return CollectionsMarshal.AsSpan(self).CopyValuesTo(destination);
+    }
+
+    /// <summary>
+    /// Copies the inner values of all <see cref="NumericOption{T}"/> in a span to a destination span,
+    /// returning the number of values copied.
+    /// </summary>
+    /// <typeparam name="T">The type of the numeric option values.</typeparam>
+    /// <param name="self">The source span of numeric options.</param>
+    /// <param name="destination">The destination span to copy the values to.</param>
+    /// <returns>The number of values copied to the destination span.</returns>
+    /// <exception cref="System.IndexOutOfRangeException">
+    /// Thrown if the destination span is too small to hold all the values.
+    /// </exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static int CopyValuesTo<T>(this Span<NumericOption<T>> self, Span<T> destination)
+        where T : struct, INumber<T>
+    {
+        return CopyValuesTo((ReadOnlySpan<NumericOption<T>>)self, destination);
+    }
+
+    /// <summary>
+    /// Copies the inner values of all <see cref="NumericOption{T}"/> in a span to a destination span,
+    /// returning the number of values copied.
+    /// </summary>
+    /// <typeparam name="T">The type of the numeric option values.</typeparam>
+    /// <param name="self">The source span of numeric options.</param>
+    /// <param name="destination">The destination span to copy the values to.</param>
+    /// <returns>The number of values copied to the destination span.</returns>
+    /// <exception cref="System.IndexOutOfRangeException">
+    /// Thrown if the destination span is too small to hold all the values.
+    /// </exception>
+    public static int CopyValuesTo<T>(this ReadOnlySpan<NumericOption<T>> self, Span<T> destination)
+        where T : struct, INumber<T>
+    {
+        int j = 0;
+        for (int i = 0; i < self.Length; i++)
+        {
+            if (self[i].IsSome(out var value))
+            {
+                destination[j++] = value;
+            }
+        }
+        return j;
     }
 
     /// <summary>

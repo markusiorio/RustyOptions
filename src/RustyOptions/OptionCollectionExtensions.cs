@@ -10,7 +10,8 @@ namespace RustyOptions;
 // TODO: test coverage:
 // https://app.codecov.io/github/jtmueller/RustyOptions/blob/users%2Fjtm%2Fcollection-performance/src%2FRustyOptions%2FOptionCollectionExtensions.cs
 // https://app.codecov.io/github/jtmueller/RustyOptions/blob/users%2Fjtm%2Fcollection-performance/src%2FRustyOptions%2FOptionCollectionExtensions.cs
-// TODO: Update README with performance notes.
+// https://app.codecov.io/github/jtmueller/RustyOptions/blob/users%2Fjtm%2Fcollection-performance/src%2FRustyOptions%2FNumericOptionExtensions.cs
+// TODO: Update README with performance notes, JSON breaking change notes.
 
 /// <summary>
 /// Extension methods for using collections with <see cref="Option{T}"/>.
@@ -36,6 +37,85 @@ public static class OptionCollectionExtensions
                 yield return value;
             }
         }
+    }
+
+    /// <summary>
+    /// Copies the inner values of all <see cref="NumericOption{T}"/> in a span to a destination span,
+    /// returning the number of values copied.
+    /// </summary>
+    /// <typeparam name="T">The type of the numeric option values.</typeparam>
+    /// <param name="self">The source span of numeric options.</param>
+    /// <param name="destination">The destination span to copy the values to.</param>
+    /// <returns>The number of values copied to the destination span.</returns>
+    /// <exception cref="System.IndexOutOfRangeException">
+    /// Thrown if the destination span is too small to hold all the values.
+    /// </exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static int CopyValuesTo<T>(this Option<T>[] self, Span<T> destination)
+        where T : struct
+    {
+        return CopyValuesTo((ReadOnlySpan<Option<T>>)self, destination);
+    }
+
+    /// <summary>
+    /// Copies the inner values of all <see cref="NumericOption{T}"/> in a span to a destination span,
+    /// returning the number of values copied.
+    /// </summary>
+    /// <typeparam name="T">The type of the numeric option values.</typeparam>
+    /// <param name="self">The source span of numeric options.</param>
+    /// <param name="destination">The destination span to copy the values to.</param>
+    /// <returns>The number of values copied to the destination span.</returns>
+    /// <exception cref="System.IndexOutOfRangeException">
+    /// Thrown if the destination span is too small to hold all the values.
+    /// </exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static int CopyValuesTo<T>(this List<Option<T>> self, Span<T> destination)
+        where T : struct
+    {
+        return CollectionsMarshal.AsSpan(self).CopyValuesTo(destination);
+    }
+
+    /// <summary>
+    /// Copies the inner values of all <see cref="Option{T}"/> in a span to a destination span,
+    /// returning the number of values copied.
+    /// </summary>
+    /// <typeparam name="T">The type of the numeric option values.</typeparam>
+    /// <param name="self">The source span of numeric options.</param>
+    /// <param name="destination">The destination span to copy the values to.</param>
+    /// <returns>The number of values copied to the destination span.</returns>
+    /// <exception cref="System.IndexOutOfRangeException">
+    /// Thrown if the destination span is too small to hold all the values.
+    /// </exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static int CopyValuesTo<T>(this Span<Option<T>> self, Span<T> destination)
+        where T : struct
+    {
+        return CopyValuesTo((ReadOnlySpan<Option<T>>)self, destination);
+    }
+
+    /// <summary>
+    /// Copies the inner values of all <see cref="Option{T}"/> in a span to a destination span,
+    /// returning the number of values copied.
+    /// </summary>
+    /// <typeparam name="T">The type of the numeric option values.</typeparam>
+    /// <param name="self">The source span of numeric options.</param>
+    /// <param name="destination">The destination span to copy the values to.</param>
+    /// <returns>The number of values copied to the destination span.</returns>
+    /// <exception cref="System.IndexOutOfRangeException">
+    /// Thrown if the destination span is too small to hold all the values.
+    /// </exception>
+    public static int CopyValuesTo<T>(this ReadOnlySpan<Option<T>> self, Span<T> destination)
+        where T : struct
+    {
+        int j = 0;
+        for (int i = 0; i < self.Length; i++)
+        {
+            if (self[i].IsSome(out var value))
+            {
+                destination[j++] = value;
+            }
+        }
+        return j;
     }
 
     /// <summary>

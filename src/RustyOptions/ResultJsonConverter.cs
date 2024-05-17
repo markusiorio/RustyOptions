@@ -78,7 +78,10 @@ internal sealed class ResultJsonConverter : JsonConverterFactory
             {
                 if (reader.TokenType == JsonTokenType.True)
                 {
-                    if (reader.Read() && reader.TokenType == JsonTokenType.PropertyName && reader.ValueSpan.SequenceEqual("value"u8) && reader.Read())
+                    if (reader.Read() &&
+                        reader.TokenType == JsonTokenType.PropertyName &&
+                        reader.ValueSpan.SequenceEqual("value"u8) &&
+                        reader.Read())
                     {
                         output = Result.Ok<T, TErr>(_valueConverter.Read(ref reader, _valueType, options)!);
                     }
@@ -89,7 +92,10 @@ internal sealed class ResultJsonConverter : JsonConverterFactory
                 }
                 else if (reader.TokenType == JsonTokenType.False)
                 {
-                    if (reader.Read() && reader.TokenType == JsonTokenType.PropertyName && reader.ValueSpan.SequenceEqual("error"u8) && reader.Read())
+                    if (reader.Read() &&
+                        reader.TokenType == JsonTokenType.PropertyName &&
+                        reader.ValueSpan.SequenceEqual("error"u8) &&
+                        reader.Read())
                     {
                         output = Result.Err<T, TErr>(_errConverter.Read(ref reader, _errType, options)!);
                     }
@@ -107,7 +113,11 @@ internal sealed class ResultJsonConverter : JsonConverterFactory
             {
                 var value = _valueConverter.Read(ref reader, _valueType, options);
 
-                if (reader.Read() && reader.TokenType == JsonTokenType.PropertyName && reader.ValueSpan.SequenceEqual("ok"u8) && reader.Read() && reader.TokenType == JsonTokenType.True)
+                if (reader.Read() &&
+                    reader.TokenType == JsonTokenType.PropertyName &&
+                    reader.ValueSpan.SequenceEqual("ok"u8) &&
+                    reader.Read() &&
+                    reader.TokenType == JsonTokenType.True)
                 {
                     output = Result.Ok<T, TErr>(value!);
                 }
@@ -120,7 +130,10 @@ internal sealed class ResultJsonConverter : JsonConverterFactory
             {
                 var err = _errConverter.Read(ref reader, _errType, options);
 
-                if (reader.Read() && reader.TokenType == JsonTokenType.PropertyName && reader.ValueSpan.SequenceEqual("ok"u8) && reader.Read() && reader.TokenType == JsonTokenType.False)
+                if (reader.Read() &&
+                    reader.TokenType == JsonTokenType.PropertyName &&
+                    reader.ValueSpan.SequenceEqual("ok"u8) &&
+                    reader.Read() && reader.TokenType == JsonTokenType.False)
                 {
                     output = Result.Err<T, TErr>(err!);
                 }

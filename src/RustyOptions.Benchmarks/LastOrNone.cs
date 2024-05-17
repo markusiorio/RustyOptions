@@ -6,14 +6,14 @@ namespace RustyOptions.Benchmarks;
 [GroupBenchmarksBy(BenchmarkLogicalGroupRule.ByCategory)]
 [CategoriesColumn]
 [Config(typeof(Config))]
-public class LastOrNoneBenchmarks
+public class LastOrNone
 {
     const int SIZE = 1000;
 
     private readonly int[] intArray;
     private readonly List<int> intList;
 
-    public LastOrNoneBenchmarks()
+    public LastOrNone()
     {
         intArray = [.. Enumerable.Range(1, SIZE)];
         intList = [.. intArray];

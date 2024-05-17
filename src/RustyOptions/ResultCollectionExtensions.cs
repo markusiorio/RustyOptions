@@ -32,6 +32,8 @@ public static class ResultCollectionExtensions
         }
     }
 
+    // TODO: Span overload for Values?
+
     /// <summary>
     /// Flattens a sequence of <see cref="Result{T, TErr}"/> into a sequence containing all error values.
     /// Ok results are discarded.
