@@ -25,7 +25,7 @@ public class LastOrNoneBenchmarks
         _ = intArray.LastOrNone();
     }
 
-    [Benchmark]
+    [Benchmark(Baseline = true)]
     public void LastOrNoneArrayOld()
     {
         _ = LastOrNoneOld(intArray);

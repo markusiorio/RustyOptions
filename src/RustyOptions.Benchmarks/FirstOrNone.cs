@@ -25,7 +25,7 @@ public class FirstOrNoneBenchmarks
         _ = intArray.FirstOrNone();
     }
 
-    [Benchmark]
+    [Benchmark(Baseline = true)]
     public void FirstOrNoneArrayOld()
     {
         _ = FirstOrNoneOld(intArray);

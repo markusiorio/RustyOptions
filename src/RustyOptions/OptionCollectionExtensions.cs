@@ -7,7 +7,9 @@ using static System.ArgumentNullException;
 namespace RustyOptions;
 
 // TODO: Performance tests to validate optimizations in this branch.
-// TODO: test coverage
+// TODO: test coverage:
+// https://app.codecov.io/github/jtmueller/RustyOptions/blob/users%2Fjtm%2Fcollection-performance/src%2FRustyOptions%2FOptionCollectionExtensions.cs
+// https://app.codecov.io/github/jtmueller/RustyOptions/blob/users%2Fjtm%2Fcollection-performance/src%2FRustyOptions%2FOptionCollectionExtensions.cs
 // TODO: Update README with performance notes.
 
 /// <summary>
