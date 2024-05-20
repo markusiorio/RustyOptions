@@ -40,7 +40,7 @@ public static class OptionCollectionExtensions
     }
 
     /// <summary>
-    /// Copies the inner values of all <see cref="NumericOption{T}"/> in a span to a destination span,
+    /// Copies the inner values of all <see cref="Option{T}"/> in a span to a destination span,
     /// returning the number of values copied.
     /// </summary>
     /// <typeparam name="T">The type of the numeric option values.</typeparam>
@@ -58,7 +58,7 @@ public static class OptionCollectionExtensions
     }
 
     /// <summary>
-    /// Copies the inner values of all <see cref="NumericOption{T}"/> in a span to a destination span,
+    /// Copies the inner values of all <see cref="Option{T}"/> in a span to a destination span,
     /// returning the number of values copied.
     /// </summary>
     /// <typeparam name="T">The type of the numeric option values.</typeparam>
