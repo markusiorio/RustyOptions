@@ -731,6 +731,10 @@ public static class ResultAsyncExtensions
         return Result.Ok<T, T2Err>(result.Unwrap());
     }
 
+    // NOTE: Due to a bug in coverlet.collector, certain lines in methods involving IAsyncEnumerable
+    // will show as partially-covered in code-coverage tools, even when they are fully-covered.
+    // https://github.com/coverlet-coverage/coverlet/issues/1104#issuecomment-1005332269
+
     /// <summary>
     /// Flattens an asynchronous sequence of <see cref="Result{T, TErr}"/> into a sequence containing all inner values.
     /// Error results are discarded.

@@ -40,8 +40,9 @@ public static class OptionCollectionExtensions
     }
 
     /// <summary>
-    /// Copies the inner values of all <see cref="Option{T}"/> in a span to a <paramref name="destination"/> span,
-    /// returning the destination span trimmed to the number of values copied.
+    /// Copies the inner values of all <see cref="Option{T}"/> in an array 
+    /// to a <paramref name="destination"/> span, returning the destination span 
+    /// trimmed to the number of values copied.
     /// </summary>
     /// <typeparam name="T">The type of the numeric option values.</typeparam>
     /// <param name="self">The source span of numeric options.</param>
@@ -58,8 +59,9 @@ public static class OptionCollectionExtensions
     }
 
     /// <summary>
-    /// Copies the inner values of all <see cref="Option{T}"/> in a span to a <paramref name="destination"/> span,
-    /// returning the destination span trimmed to the number of values copied.
+    /// Copies the inner values of all <see cref="Option{T}"/> in a List 
+    /// to a <paramref name="destination"/> span, returning the destination span 
+    /// trimmed to the number of values copied.
     /// </summary>
     /// <typeparam name="T">The type of the numeric option values.</typeparam>
     /// <param name="self">The source span of numeric options.</param>
@@ -76,8 +78,9 @@ public static class OptionCollectionExtensions
     }
 
     /// <summary>
-    /// Copies the inner values of all <see cref="Option{T}"/> in a span to a <paramref name="destination"/> span,
-    /// returning the destination span trimmed to the number of values copied.
+    /// Copies the inner values of all <see cref="Option{T}"/> in a span 
+    /// to a <paramref name="destination"/> span, returning the destination span 
+    /// trimmed to the number of values copied.
     /// </summary>
     /// <typeparam name="T">The type of the numeric option values.</typeparam>
     /// <param name="self">The source span of numeric options.</param>
@@ -94,8 +97,9 @@ public static class OptionCollectionExtensions
     }
 
     /// <summary>
-    /// Copies the inner values of all <see cref="Option{T}"/> in a span to a <paramref name="destination"/> span,
-    /// returning the destination span trimmed to the number of values copied.
+    /// Copies the inner values of all <see cref="Option{T}"/> in a span 
+    /// to a <paramref name="destination"/> span, returning the destination span 
+    /// trimmed to the number of values copied.
     /// </summary>
     /// <typeparam name="T">The type of the numeric option values.</typeparam>
     /// <param name="self">The source span of numeric options.</param>
