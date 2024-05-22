@@ -147,15 +147,17 @@ public static class NumericOptionExtensions
 
     /// <summary>
     /// Zips this <c>Option</c> and another <c>Option</c> with function <paramref name="zipper"/>.
-    /// <para>If this option is <c>Some(s)</c> and other is <c>Some(o)</c>, this method returns <c>Some(zipper(s, o))</c>. Otherwise, <c>None</c> is returned.</para>
+    /// If this option is <c>Some(s)</c> and other is <c>Some(o)</c>, 
+    /// this method returns <c>Some(zipper(s, o))</c>. Otherwise, <c>None</c> is returned.
     /// </summary>
     /// <typeparam name="T1">The type contained by the first option.</typeparam>
     /// <typeparam name="T2">The type contained by the second option.</typeparam>
     /// <typeparam name="T3">The type returned by the <paramref name="zipper"/> function.</typeparam>
     /// <param name="self">The first option.</param>
     /// <param name="other">The second option.</param>
-    /// <param name="zipper">A functon that combines values from the two options into a new type.</param>
-    /// <returns>An option contianing the result of passing both values to the <paramref name="zipper"/> function, or <c>None</c>.</returns>
+    /// <param name="zipper">A function that combines values from the two options into a new type.</param>
+    /// <returns>An option contianing the result of passing both values to the 
+    /// <paramref name="zipper"/> function, or <c>None</c>.</returns>
     /// <exception cref="System.ArgumentNullException">Thrown if <paramref name="zipper"/> is null.</exception>
     public static NumericOption<T3> ZipWith<T1, T2, T3>(this NumericOption<T1> self, NumericOption<T2> other, Func<T1, T2, T3> zipper)
         where T1 : struct, INumber<T1>
@@ -183,7 +185,8 @@ public static class NumericOptionExtensions
     }
 
     /// <summary>
-    /// Returns <c>None</c> if the option is <c>None</c>, otherwise calls <paramref name="thenFn"/> with the wrapped value and returns the result.
+    /// Returns None if the option is None, otherwise calls <paramref name="thenFn"/> 
+    /// with the wrapped value and returns the result.
     /// </summary>
     /// <typeparam name="T1">The type contained by the first option.</typeparam>
     /// <typeparam name="T2">The type contained by the second option.</typeparam>
