@@ -16,7 +16,9 @@ using static System.ArgumentNullException;
 namespace RustyOptions;
 
 /// <summary>
-/// <see cref="NumericOption{T}"/> represents an optional number: every <see cref="NumericOption{T}"/> is either <c>Some</c> and contains a number, or <c>None</c>, and does not. 
+/// <see cref="NumericOption{T}"/> represents an optional number: every 
+/// <see cref="NumericOption{T}"/> is either 'Some' and contains a number, or 
+/// 'None', and does not. 
 /// </summary>
 /// <typeparam name="T">The type the option might contain.</typeparam>
 [SuppressMessage("Design", "CA1000:Do not declare static members on generic types", Justification = "Required for INumber.")]
