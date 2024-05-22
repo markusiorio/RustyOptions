@@ -25,18 +25,17 @@ public class NumericOptionValues
     public void EnumerableValues()
     {
         int i = 0;
-        foreach (var _ in intArray.AsEnumerable().Values())
+        foreach (var _ in intArray.Values())
         {
             i++;
         }
     }
 
     [Benchmark]
-    public void ArrayValues()
+    public void SpanValues()
     {
         int i = 0;
-        int count = intArray.CopyValuesTo(valuesBuffer);
-        foreach (var _ in valuesBuffer.AsSpan(0, count))
+        foreach (var _ in intArray.CopyValuesTo(valuesBuffer))
         {
             i++;
         }
