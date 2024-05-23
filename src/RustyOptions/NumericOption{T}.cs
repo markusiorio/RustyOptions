@@ -68,7 +68,7 @@ public readonly struct NumericOption<T> :
     private readonly T _value;
 
     /// <summary>
-    /// Creates an <see cref="Option{T}"/> containing the given value.
+    /// Creates an <see cref="NumericOption{T}"/> containing the given value.
     /// <para>NOTE: Nulls are not allowed; a null value will result in a <c>None</c> option.</para>
     /// </summary>
     /// <param name="value">The value to wrap in an <see cref="Option{T}"/>.</param>
@@ -732,55 +732,55 @@ public readonly struct NumericOption<T> :
     }
 
     /// <summary>
-    /// Determines whether one <c>Option</c> is equal to another <c>Option</c>.
+    /// Determines whether one <c>NumericOption</c> is equal to another <c>NumericOption</c>.
     /// </summary>
-    /// <param name="left">The first <c>Option</c> to compare.</param>
-    /// <param name="right">The second <c>Option</c> to compare.</param>
+    /// <param name="left">The first <c>NumericOption</c> to compare.</param>
+    /// <param name="right">The second <c>NumericOption</c> to compare.</param>
     /// <returns><c>true</c> if the two values are equal.</returns>
     public static bool operator ==(NumericOption<T> left, NumericOption<T> right)
         => left.Equals(right);
 
     /// <summary>
-    /// Determines whether one <c>Option</c> is not equal to another <c>Option</c>.
+    /// Determines whether one <c>NumericOption</c> is not equal to another <c>NumericOption</c>.
     /// </summary>
-    /// <param name="left">The first <c>Option</c> to compare.</param>
-    /// <param name="right">The second <c>Option</c> to compare.</param>
+    /// <param name="left">The first <c>NumericOption</c> to compare.</param>
+    /// <param name="right">The second <c>NumericOption</c> to compare.</param>
     /// <returns><c>true</c> if the two values are not equal.</returns>
     public static bool operator !=(NumericOption<T> left, NumericOption<T> right)
         => !left.Equals(right);
 
     /// <summary>
-    /// Determines whether one <c>Option</c> is greater than another <c>Option</c>.
+    /// Determines whether one <c>NumericOption</c> is greater than another <c>NumericOption</c>.
     /// </summary>
-    /// <param name="left">The first <c>Option</c> to compare.</param>
-    /// <param name="right">The second <c>Option</c> to compare.</param>
+    /// <param name="left">The first <c>NumericOption</c> to compare.</param>
+    /// <param name="right">The second <c>NumericOption</c> to compare.</param>
     /// <returns><c>true</c> if the <paramref name="left"/> parameter is greater than the <paramref name="right"/> parameter.</returns>
     public static bool operator >(NumericOption<T> left, NumericOption<T> right)
         => left.CompareTo(right) > 0;
 
     /// <summary>
-    /// Determines whether one <c>Option</c> is less than another <c>Option</c>.
+    /// Determines whether one <c>NumericOption</c> is less than another <c>NumericOption</c>.
     /// </summary>
-    /// <param name="left">The first <c>Option</c> to compare.</param>
-    /// <param name="right">The second <c>Option</c> to compare.</param>
+    /// <param name="left">The first <c>NumericOption</c> to compare.</param>
+    /// <param name="right">The second <c>NumericOption</c> to compare.</param>
     /// <returns><c>true</c> if the <paramref name="left"/> parameter is less than the <paramref name="right"/> parameter.</returns>
     public static bool operator <(NumericOption<T> left, NumericOption<T> right)
         => left.CompareTo(right) < 0;
 
     /// <summary>
-    /// Determines whether one <c>Option</c> is greater than or equal to another <c>Option</c>.
+    /// Determines whether one <c>NumericOption</c> is greater than or equal to another <c>NumericOption</c>.
     /// </summary>
-    /// <param name="left">The first <c>Option</c> to compare.</param>
-    /// <param name="right">The second <c>Option</c> to compare.</param>
+    /// <param name="left">The first <c>NumericOption</c> to compare.</param>
+    /// <param name="right">The second <c>NumericOption</c> to compare.</param>
     /// <returns><c>true</c> if the <paramref name="left"/> parameter is greater than or equal to the <paramref name="right"/> parameter.</returns>
     public static bool operator >=(NumericOption<T> left, NumericOption<T> right)
         => left.CompareTo(right) >= 0;
 
     /// <summary>
-    /// Determines whether one <c>Option</c> is less than or equal to another <c>Option</c>.
+    /// Determines whether one <c>NumericOption</c> is less than or equal to another <c>NumericOption</c>.
     /// </summary>
-    /// <param name="left">The first <c>Option</c> to compare.</param>
-    /// <param name="right">The second <c>Option</c> to compare.</param>
+    /// <param name="left">The first <c>NumericOption</c> to compare.</param>
+    /// <param name="right">The second <c>NumericOption</c> to compare.</param>
     /// <returns><c>true</c> if the <paramref name="left"/> parameter is less than or equal to the <paramref name="right"/> parameter.</returns>
     public static bool operator <=(NumericOption<T> left, NumericOption<T> right)
         => left.CompareTo(right) <= 0;

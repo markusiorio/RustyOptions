@@ -18,10 +18,12 @@ namespace RustyOptions;
 [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords", Justification = "Not concerned with Visual Basic or F#.")]
 [Serializable]
 [JsonConverter(typeof(OptionJsonConverter))]
-public readonly struct Option<T> : IEquatable<Option<T>>, IComparable<Option<T>>, IFormattable, ISpanFormattable
+public readonly struct Option<T> :
+    IEquatable<Option<T>>, IComparable<Option<T>>, IFormattable,
 #if NET8_0_OR_GREATER
-, IUtf8SpanFormattable
+    IUtf8SpanFormattable,
 #endif
+    ISpanFormattable
     where T : notnull
 {
     /// <summary>
