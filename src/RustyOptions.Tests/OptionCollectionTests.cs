@@ -338,8 +338,11 @@ public class OptionCollectionTests
         var queue = new PriorityQueue<int, int>([(1, 3), (2, 2), (3, 1), (4, 1), (5, 0)]);
         var emptyQueue = new PriorityQueue<int, int>();
 
-        Assert.Equal(Some((5, 0)), queue.DequeueOrNone());
-        Assert.Equal(4, queue.Count);
+        Assert.True(queue.DequeueOrNone().IsSome(out var value1));
+        Assert.Equal(5, value1.Element);
+        Assert.Equal(0, value1.Priority);
+        Assert.Equal(Some((3, 1)), queue.DequeueOrNone());
+        Assert.Equal(3, queue.Count);
         Assert.True(emptyQueue.DequeueOrNone().IsNone);
     }
 
