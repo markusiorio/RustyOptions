@@ -24,11 +24,12 @@ namespace RustyOptions;
 [SuppressMessage("Design", "CA1000:Do not declare static members on generic types", Justification = "Required for INumber.")]
 [Serializable]
 [JsonConverter(typeof(NumericOptionJsonConverter))]
-public readonly struct NumericOption<T> : IEquatable<NumericOption<T>>, IComparable<NumericOption<T>>, INumber<NumericOption<T>>,
-                                          IFormattable, ISpanFormattable
+public readonly struct NumericOption<T> : 
+    IEquatable<NumericOption<T>>, IComparable<NumericOption<T>>, INumber<NumericOption<T>>,
 #if NET8_0_OR_GREATER
-    , IUtf8SpanFormattable
+    IUtf8SpanFormattable,
 #endif
+    IFormattable, ISpanFormattable
     where T : struct, INumber<T>
 {
     /// <summary>
