@@ -23,6 +23,7 @@ public static class ResultExtensions
         where T1 : notnull
         where T2 : notnull
     {
+        ThrowIfNull(mapper);
         return self.Match(
             onOk: x => new(mapper(x)),
             onErr: Result.Err<T2, TErr>
@@ -43,6 +44,7 @@ public static class ResultExtensions
     public static Result<T, T2Err> MapErr<T, T1Err, T2Err>(this Result<T, T1Err> self, Func<T1Err, T2Err> errMapper)
         where T : notnull
     {
+        ThrowIfNull(errMapper);
         return self.Match(
             onOk: Result.Ok<T, T2Err>,
             onErr: e => new(errMapper(e))
@@ -153,6 +155,7 @@ public static class ResultExtensions
         where T1 : notnull
         where T2 : notnull
     {
+        ThrowIfNull(thenFunc);
         return self.Match(
             onOk: thenFunc,
             onErr: Result.Err<T2, TErr>
@@ -191,6 +194,7 @@ public static class ResultExtensions
     public static Result<T, T2Err> OrElse<T, T1Err, T2Err>(this Result<T, T1Err> self, Func<T1Err, Result<T, T2Err>> elseFunc)
         where T : notnull
     {
+        ThrowIfNull(elseFunc);
         return self.Match(
             onOk: Result.Ok<T, T2Err>,
             onErr: elseFunc
@@ -208,7 +212,7 @@ public static class ResultExtensions
         where T : notnull
     {
         return self.Match(
-            onOk: x => x,
+            onOk: static x => x,
             onErr: Result.Err<T, TErr>
         );
     }
