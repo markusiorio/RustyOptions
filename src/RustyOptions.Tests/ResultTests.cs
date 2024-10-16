@@ -15,9 +15,14 @@ public sealed class ResultTests
         var errStr2 = Err<int, string>("Whoops!");
 
         Assert.True(okInt.IsOk(out var o1) && o1 == 42);
+        Assert.True(okInt.IsOkAnd(n => n == 42, out _));
         Assert.True(errStr.IsErr(out var e1) && e1 == "Whoops!");
+        Assert.True(errStr.IsErrAnd(s => s == "Whoops!", out _));
         Assert.False(okInt.IsErr(out _));
         Assert.False(errStr.IsOk(out _));
+
+        Assert.False(okInt.IsOkAnd(null, out _));
+        Assert.False(errStr.IsOkAnd(null, out _));
 
         Assert.True(okInt == okInt2);
         Assert.Equal(okInt, okInt2);
@@ -38,7 +43,10 @@ public sealed class ResultTests
         var errInt2 = Err<string, int>(-1);
 
         Assert.True(okStr.IsOk(out var o1) && o1 == "Foo");
+        Assert.True(okStr.IsOkAnd(s => s == "Foo", out _));
+
         Assert.True(errInt.IsErr(out var e1) && e1 == -1);
+        Assert.True(errInt.IsErrAnd(n => n == -1, out _));
         Assert.False(okStr.IsErr(out _));
         Assert.False(errInt.IsOk(out _));
 
@@ -58,7 +66,9 @@ public sealed class ResultTests
         var err = Err<int>("oops");
 
         Assert.True(ok.IsOk(out var okVal) && okVal == 42);
+        Assert.True(ok.IsOkAnd(n => n == 42, out _));
         Assert.True(err.IsErr(out var errVal) && errVal == "oops");
+        Assert.True(err.IsErrAnd(err => err == "oops", out _));
     }
 
     [Fact]
@@ -68,7 +78,9 @@ public sealed class ResultTests
         var err = Err<int>(new InvalidOperationException("oops"));
 
         Assert.True(ok.IsOk(out var okVal) && okVal == 42);
+        Assert.True(ok.IsOkAnd(n => n == 42, out _));
         Assert.True(err.IsErr(out var ex) && ex?.Message == "oops");
+        Assert.True(err.IsErrAnd(exc => exc.Message == "oops", out _));
     }
 
     [Fact]
@@ -187,7 +199,9 @@ public sealed class ResultTests
         int DoesNotThrow() => new[] { 42 }[0];
 
         Assert.True(Result.Try(Throws).IsErr(out var ex) && ex is IndexOutOfRangeException);
+        Assert.True(Result.Try(Throws).IsErrAnd(exc => exc is IndexOutOfRangeException, out _));
         Assert.True(Result.Try(DoesNotThrow).IsOk(out var val) && val == 42);
+        Assert.True(Result.Try(DoesNotThrow).IsOkAnd(n => n == 42, out _));
     }
 
     [Fact]
