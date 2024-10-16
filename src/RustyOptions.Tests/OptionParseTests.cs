@@ -1,11 +1,17 @@
 ﻿#if NET7_0_OR_GREATER
 
 using static RustyOptions.Option;
+using System.Globalization;
 
 namespace RustyOptions.Tests
 {
     public class OptionParseTests
     {
+        public OptionParseTests()
+        {
+            CultureInfo.CurrentCulture = new CultureInfo("en-US");
+        }
+
         [Fact]
         public void CanParseStrings()
         {
