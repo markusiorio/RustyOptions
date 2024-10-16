@@ -1,4 +1,4 @@
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -558,6 +558,21 @@ public readonly struct Result<T, TErr> : IEquatable<Result<T, TErr>>, IComparabl
     {
         value = _value;
         return predicate != null && _isOk && predicate(_value);
+    }
+
+    /// <summary>
+    /// Checks whether the result is <c>Err</c> and applies the given <paramref name="predicate"/> 
+    /// to the error value if it is. Returns <c>true</c> if both conditions are met; otherwise, returns <c>false</c>.
+    /// The resulting error value is output through the <paramref name="error"/> parameter, which will be <c>null</c> 
+    /// if the result is not <c>Err</c>.
+    /// </summary>
+    /// <param name="predicate">The function to evaluate the error value when the result is <c>Err</c>.</param>
+    /// <param name="error">When this method returns, contains the error value if the result is <c>Err</c>; otherwise, <c>null</c>.</param>
+    /// <returns><c>true</c> if the result is <c>Err</c> and the predicate returns <c>true</c>; otherwise, <c>false</c>.</returns>
+    public bool IsErrAnd(Func<TErr, bool> predicate, [MaybeNullWhen(false)] out TErr error)
+    {
+        error = _err;
+        return predicate != null && !_isOk && predicate(_err);
     }
 
 }
