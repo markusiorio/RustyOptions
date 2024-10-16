@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -544,4 +544,20 @@ public readonly struct Result<T, TErr> : IEquatable<Result<T, TErr>>, IComparabl
     /// <returns><c>true</c> if the <paramref name="left"/> parameter is less than or equal to the <paramref name="right"/> parameter.</returns>
     public static bool operator <=(Result<T, TErr> left, Result<T, TErr> right)
         => left.CompareTo(right) <= 0;
+
+    /// <summary>
+    /// Checks whether the result is <c>Ok</c> and applies the given <paramref name="predicate"/> 
+    /// to the value if it is. Returns <c>true</c> if both conditions are met; otherwise, returns <c>false</c>.
+    /// The resulting value is output through the <paramref name="value"/> parameter, which will be <c>null</c> 
+    /// if the result is not <c>Ok</c>.
+    /// </summary>
+    /// <param name="predicate">The function to evaluate the value when the result is <c>Ok</c>.</param>
+    /// <param name="value">When this method returns, contains the value if the result is <c>Ok</c>; otherwise, <c>null</c>.</param>
+    /// <returns><c>true</c> if the result is <c>Ok</c> and the predicate returns <c>true</c>; otherwise, <c>false</c>.</returns>
+    public bool IsOkAnd(Func<T, bool> predicate, [MaybeNullWhen(false)] out T value)
+    {
+        value = _value;
+        return predicate != null && _isOk && predicate(_value);
+    }
+
 }
